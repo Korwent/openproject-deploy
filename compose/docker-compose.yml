@@ -79,6 +79,18 @@ services:
       timeout: 3s
       retries: 3
       start_period: 30s
+      - "traefik.enable=true"
+      - "traefik.http.routers.projetpapa.entrypoints=web"
+   #   - "traefik.http.routers.projetpapa.rule=Host(`projetpapa.spearheadsounds.com`)"
+      - "traefik.http.middlewares.projetpapa-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.projetpapa.middlewares=projetpapa-https-redirect"
+      - "traefik.http.routers.projetpapa-secure.entrypoints=websecure"
+      - "traefik.http.routers.projetpapa-secure.rule=Host(`bitwarden.spearheadsounds.com`)"
+      - "traefik.http.routers.projetpapa-secure.tls=true"
+      - "traefik.http.routers.projetpapa-secure.tls.certresolver=lets-encrypt"
+      - "traefik.http.routers.projetpapa-secure.service=projetpapa-secure"
+      - "traefik.http.services.projetpapa-secure.loadbalancer.server.port=8080"
+      
 
   autoheal:
     image: willfarrell/autoheal:1.2.0
