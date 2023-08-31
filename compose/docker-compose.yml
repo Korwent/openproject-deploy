@@ -1,7 +1,8 @@
 version: "3.7"
 
 networks:
-  frontend:
+  traefik_proxy:
+    external: true
   backend:
 
 volumes:
@@ -35,7 +36,7 @@ services:
     <<: *restart_policy
     stop_grace_period: "3s"
     volumes:
-      - "${PGDATA:-pgdata}:/var/lib/postgresql/data"
+      - "$storage/projetpapa/pgdata:/var/lib/postgresql/data"
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-p4ssw0rd}
       POSTGRES_DB: openproject
@@ -59,13 +60,13 @@ services:
     depends_on:
       - web
     networks:
-      - frontend
+      - traefik_proxy
 
   web:
     <<: *app
     command: "./docker/prod/web"
     networks:
-      - frontend
+      - traefik_proxy
       - backend
     depends_on:
       - db
