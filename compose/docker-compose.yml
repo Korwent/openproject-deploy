@@ -1,7 +1,7 @@
 version: "3.7"
 
 networks:
-  traefik_proxy:
+  traefik-proxy:
     external: true
   backend:
 
@@ -60,13 +60,13 @@ services:
     depends_on:
       - web
     networks:
-      - traefik_proxy
+      - traefik-proxy
 
   web:
     <<: *app
     command: "./docker/prod/web"
     networks:
-      - traefik_proxy
+      - traefik-proxy
       - backend
     depends_on:
       - db
