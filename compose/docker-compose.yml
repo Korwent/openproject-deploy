@@ -86,7 +86,7 @@ services:
       - "traefik.http.middlewares.projetpapa-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.projetpapa.middlewares=projetpapa-https-redirect"
       - "traefik.http.routers.projetpapa-secure.entrypoints=websecure"
-      - "traefik.http.routers.projetpapa-secure.rule=Host(`bitwarden.spearheadsounds.com`)"
+      - "traefik.http.routers.projetpapa-secure.rule=Host(`projetpapa.spearheadsounds.com`)"
       - "traefik.http.routers.projetpapa-secure.tls=true"
       - "traefik.http.routers.projetpapa-secure.tls.certresolver=lets-encrypt"
       - "traefik.http.routers.projetpapa-secure.service=projetpapa-secure"
